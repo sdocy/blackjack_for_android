@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="buttonText">16sp</dimen>
+    <dimen name="infoText">16sp</dimen>
+    <dimen name="cardTotalText">32sp</dimen>
+    <dimen name="playerTagText">8sp</dimen>
+    <dimen name="resultsText">48sp</dimen>
+    <dimen name="betButtonWidth">36sp</dimen>
+    <dimen name="betButtonHeight">24sp</dimen>
+</resources>

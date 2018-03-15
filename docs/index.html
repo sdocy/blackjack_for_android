@@ -1,0 +1,120 @@
+<head>
+	<title>BlackJack for Android</title>
+	<link rel="stylesheet" type="text/css" href="myStyles.css">
+</head>
+
+<html>	
+<body bgcolor="#004d00">
+
+<div>
+	<div class="float-left indentleft">
+		<p class="center">
+			<br/><br/><br/><br/><br/><br/><br/><br/><br/>Check out the code at the project repo<br/>
+			<a href="https://github.com/sdocy/blackjackandroid" target="_blank">https://github.com/sdocy/blackjack</a><br/><br/>
+		</p>
+			
+		<p><br/>Send me feedback, questions, or ideas</p>
+		<address class="center">
+			<a href="mailto:sdocy@comcast.net">sdocy@comcast.net</a>
+		</address>
+	</div>
+	
+	<div class="center">
+		<img class="small-image" src="blackjack2.png">
+		<h1><font color="#711B1C">for Android<br/><br/></font></h1>
+	</div>
+</div>
+
+<div>
+	<div class="text-left indentleft">
+		<p>
+			I finished my GrowWithGoogle / Udacity Android Development class in less than a month, so I began fishing around for other projects to
+			try out.  A few months ago, I had implemented a full-featured, BlackJack game in Unity / C#.  It was a UI-driven game and I felt
+			comfortable that I had learned enough XML and Java to port the game to Android.<br/>
+			The original Unity / C# code is here <a target="_blank" href="https://github.com/sdocy/blackjack" target="_blank">https://github.com/sdocy/blackjack</a>,
+			project website <a target="_blank" href="https://sdocy.github.io/blackjack/" target="_blank">https://sdocy.github.io/blackjack/</a>
+		</p>
+		
+		<p>Highlights:</p>
+		<ul>
+			<li>Most of code actually ported quite easily.</li>
+			<li>Even swapping the Unity button, text and image objects for XML button, text and image views was pretty straightforward.</li>
+			<li>Getting proper game delays was trickier than in Unity, but it gave me a chance to play with Java multi-threading.</li>
+			
+			<li>I did not port support for splitting cards.  Being able to display multiple player hands on a small mobile screen will require
+			    a new card layout approach.
+			</li>
+			
+			<li>The absence of pass-by-reference in Java resulted in my creating a player class to be able to have Java methods that work on both 
+				the player's hand and the dealer's hand.  This actually turned out extremely well.  Not only could I re-use the code I wanted for
+				both the player and the dealer, but it made the blackjack code feel much more streamlined.  Go go OOD!
+			</li>
+		</ul>
+		
+		<p>Gory details:</p>
+		<ul>
+			<li>I also didn't port the simulation code, but it was kept separate enough, that keeping it out of the port was straight-forward</li>
+			
+			<li>As expected, implementing synchronous delays at specific points in the game, for example, to slow down card dealing so that the
+				user can follow the action, was tricky.  In Unity, I had to learn how to mix asynchronous coroutines with synchronous, event-driven
+				code.  Java presented a number of approaches to accomplishing the same thing, but none which seemed to allow multiple, successive,
+				synchronous delays. The approaches I investigated are:
+			</li>
+			
+				<ul>
+					<li>Thread.Sleep() and SystemClock.Sleep(), which do exactly what I want, but they can't be used on the main UI thread, or
+						updates to the screen will not take place until after the sleep, even if they are initiated before the sleep.
+					</li>
+					
+					<li>Java includes handlers and runnables for triggering the execution of code after a certain delay.  But as far as I can tell,
+						there is no way to make the delays synchronous with respect to the thread that spawned them, so in order to get multiple,
+						delayed events, you would need to implement a complex, unmaintainable chain of runnables.
+					</li>
+					
+					<li>So I learned how to create a new thread in Java.  I figured that would allow me to use Thread.Sleep() to get the delays
+						I wanted.  And I was correct, EXCEPT...you can only update UI elements (buttons, TextViews, ImageViews, etc.) from the main
+						UI thread.  Ahhhhhh....seemed like every course I investigated kept running into one gotcha or another.
+					</li>
+					
+					<li>I read that Looper threads may be able to update screen elements, but I couldn't find an explanation of them that was clear.
+						But then I saw runOnUiThread() which sounded like it would execute the specified runnable on the main UI thread, which
+						could then update screen elements.  I tried creating a new thread, using Thread.Sleep() prior to an action that I wanted to
+						delay, and then using runOnUiThread() to give the task to the UI thread if it was something that updated the screen.  It all
+						worked beautifully, and didn't turn out quite as cumbersome as it sounds, though it has the unfortunate side effect of
+						requiring delays after calling runOnUiThread().
+					</li>
+					
+					<li>At some point, I will go back and try to figure out Looper threads</li>
+					
+					<li>Check out the code in this gist....
+						<a target="_blank" href="https://gist.github.com/sdocy/f195beeb08a29827417adb324e21c83a" target="_blank">https://gist.github.com/sdocy/f195beeb08a29827417adb324e21c83a</a>
+					</li>
+				</ul>
+				
+				<li>In order to make room next to the dealer's cards for the dealer card total, I had to fudge the dealer cards a little.  Technically
+					we need to support 12 cards for player and dealer since you can get 12 cards without busting.  But the odds of that happening are
+					extremely small, so what I did is, I kept the 12th card image slot, but moved it to where I want the dealer card total (to the right
+					of the dealer's first two cards, and changed it's width to 0.  So the dealer can be dealt 12 cards, it's just that the twelfth card
+					 ill no be displayed.  I can live with that for now.
+				</li>
+		</ul>
+	</div>
+	
+	<div class="text-right center">
+		<img src="bj.gif">
+	
+		<p><br/><br/></p>
+	
+		<video width="80%" controls preload >
+			<source src="play.mp4">
+		</video>
+	</div>
+</div>
+
+
+<div>
+	<p><br/><br/><br/></p>
+</div>
+
+</body>
+</html>

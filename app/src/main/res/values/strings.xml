@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">blackjack</string>
+    <string name="deal">deal</string>
+    <string name="hit">hit</string>
+    <string name="stand">stand</string>
+    <string name="doubleDown">double\ndown</string>
+    <string name="total">Total </string>
+    <string name="cash">$XXXX</string>
+    <string name="bet">Bet </string>
+    <string name="betNum">$XXX</string>
+    <string name="showCardTotals">show\ncard\ntotals</string>
+    <string name="dealer">dealer</string>
+    <string name="player">player</string>
+    <string name="playerCard">player card</string>
+    <string name="dealerCard">dealer card</string>
+    <string name="push">PUSH</string>
+    <string name="blackjack">BLACKJACK</string>
+    <string name="youWin">YOU WIN</string>
+    <string name="busted">BUSTED</string>
+    <string name="dealerWins">DEALER WINS</string>
+</resources>

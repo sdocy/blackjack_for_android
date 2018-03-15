@@ -1,0 +1,55 @@
+body {
+	color: white;
+}
+
+.text-left {
+	display: inline-block;
+	vertical-align : top;
+	width: 46%;
+}
+
+.text-right {
+	display: inline-block;
+	width: 46%;
+}
+
+.float-left {
+	float: left;
+	position: absolute;
+}
+
+.indentleft {
+	margin-left: 20px;
+}
+
+.indentright {
+	margin-right: 20px;
+}
+
+.small-image {
+	width: 300px;
+}
+
+.med-image {
+	width: 500px;
+}
+
+.center {
+	text-align: center;
+}
+
+p {
+	margin-left: 20px;
+}
+
+a:link {
+	color: #00ff00;
+}
+
+a:visited {
+	color: #99cc00;
+}
+
+a:hover {
+	color: #80ff80;
+}
