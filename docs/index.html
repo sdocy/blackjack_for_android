@@ -66,48 +66,45 @@
 				user can follow the action, was tricky.  In Unity, I had to learn how to mix asynchronous coroutines with synchronous, event-driven
 				code.  Java presented a number of approaches to accomplishing the same thing, but none which seemed to allow multiple, successive,
 				synchronous delays. The approaches I investigated are:
-			</li>
-			
-				<li>
-					<ul>
-						<li>Thread.Sleep() and SystemClock.Sleep(), do exactly what I want, but they can't be used on the main UI thread, or
-							updates to the screen will not take place until after the sleep, even if they are initiated before the sleep.
-						</li>
-						
-						<li>Java includes handlers and runnables for triggering the execution of code after a certain delay.  But as far as I can tell,
-							there is no way to make the delays synchronous with respect to the thread that spawned them, so in order to get multiple,
-							delayed events, you would need to implement a complex, unmaintainable chain of runnables.
-						</li>
-						
-						<li>So I learned how to create a new thread in Java.  I figured that would allow me to use Thread.Sleep() to get the delays
-							I wanted.  And I was correct, EXCEPT...you can only update UI elements (buttons, TextViews, ImageViews, etc.) from the main
-							UI thread.  Ahhhhhh....seemed like every course I investigated kept running into one gotcha or another.
-						</li>
-						
-						<li>I read that Looper threads may be able to update screen elements, but I couldn't find an explanation of them that was clear.
-							But then I saw runOnUiThread() which sounded like it would execute the specified runnable on the main UI thread, which
-							could then update screen elements.  I tried creating a new thread, using Thread.Sleep() prior to an action that I wanted to
-							delay, and then using runOnUiThread() to give the task to the UI thread if it was something that updated the screen.  It all
-							worked pretty well, and didn't turn out quite as cumbersome as it sounds, though it has the unfortunate side effect of
-							requiring delays after calling runOnUiThread().  I wouldn't recommend this design for anything at all complex, for for my
-							simple blackjack code, it was manageable,
-						</li>
-						
-						<li>At some point, I will go back and try to figure out Looper threads</li>
-						
-						<li>Check out the code in this gist....
-							<a target="_blank" href="https://gist.github.com/sdocy/f195beeb08a29827417adb324e21c83a">https://gist.github.com/sdocy/f195beeb08a29827417adb324e21c83a</a>
-						</li>
-					</ul>
-				</li>
+                <ul>
+                    <li>Thread.Sleep() and SystemClock.Sleep(), do exactly what I want, but they can't be used on the main UI thread, or
+                        updates to the screen will not take place until after the sleep, even if they are initiated before the sleep.
+                    </li>
+
+                    <li>Java includes handlers and runnables for triggering the execution of code after a certain delay.  But as far as I can tell,
+                        there is no way to make the delays synchronous with respect to the thread that spawned them, so in order to get multiple,
+                        delayed events, you would need to implement a complex, unmaintainable chain of runnables.
+                    </li>
+
+                    <li>So I learned how to create a new thread in Java.  I figured that would allow me to use Thread.Sleep() to get the delays
+                        I wanted.  And I was correct, EXCEPT...you can only update UI elements (buttons, TextViews, ImageViews, etc.) from the main
+                        UI thread.  Ahhhhhh....seemed like every course I investigated kept running into one gotcha or another.
+                    </li>
+
+                    <li>I read that Looper threads may be able to update screen elements, but I couldn't find an explanation of them that was clear.
+                        But then I saw runOnUiThread() which sounded like it would execute the specified runnable on the main UI thread, which
+                        could then update screen elements.  I tried creating a new thread, using Thread.Sleep() prior to an action that I wanted to
+                        delay, and then using runOnUiThread() to give the task to the UI thread if it was something that updated the screen.  It all
+                        worked pretty well, and didn't turn out quite as cumbersome as it sounds, though it has the unfortunate side effect of
+                        requiring delays after calling runOnUiThread().  I wouldn't recommend this design for anything at all complex, for for my
+                        simple blackjack code, it was manageable,
+                    </li>
+
+                    <li>At some point, I will go back and try to figure out Looper threads</li>
+
+                    <li>Check out the code in this gist....
+                        <a target="_blank" href="https://gist.github.com/sdocy/f195beeb08a29827417adb324e21c83a">https://gist.github.com/sdocy/f195beeb08a29827417adb324e21c83a</a>
+                    </li>
+                </ul>
+            </li>
 				
-				<li>In order to make room next to the dealer's cards for the dealer card total, I had to fudge the dealer cards a little.  Technically
-					we need to support displaying 12 cards for both player and dealer since you can get 12 cards without busting.  But the odds of
-					that happening are extremely small, so I kept the 12th card image slot for the dealer, but moved it to where I want
-					the dealer card total to be displayed (to the right of the dealer's first two cards, and changed it's width to 0.  So the dealer
-					can be dealt 12 cards, it's just that the twelfth card will not be displayed.  I can live with that for now.  I will likely
-					investigate using a RelativeLayout for the card images and overlapping them slightly to conserve real estate.
-				</li>
+            <li>In order to make room next to the dealer's cards for the dealer card total, I had to fudge the dealer cards a little.  Technically
+                we need to support displaying 12 cards for both player and dealer since you can get 12 cards without busting.  But the odds of
+                that happening are extremely small, so I kept the 12th card image slot for the dealer, but moved it to where I want
+                the dealer card total to be displayed (to the right of the dealer's first two cards, and changed it's width to 0.  So the dealer
+                can be dealt 12 cards, it's just that the twelfth card will not be displayed.  I can live with that for now.  I will likely
+                investigate using a RelativeLayout for the card images and overlapping them slightly to conserve real estate.
+            </li>
 		</ul>
 	</div>
 	
