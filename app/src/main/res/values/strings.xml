@@ -9,6 +9,7 @@
     <string name="bet">Bet </string>
     <string name="betNum">$XXX</string>
     <string name="showCardTotals">show\ncard\ntotals</string>
+    <string name="playSound">play\nsound</string>
     <string name="dealer">dealer</string>
     <string name="player">player</string>
     <string name="playerCard">player card</string>

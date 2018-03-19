@@ -3,4 +3,6 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="bj_red">@android:color/holo_red_light</color>
+    <color name="felt_green">#006622</color>
 </resources>
