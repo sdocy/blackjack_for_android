@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/felt_green"
+    android:background="#006600"
     android:padding="8dp"
     android:gravity="center"
     tools:context="com.example.android.blackjack.MainActivity">
